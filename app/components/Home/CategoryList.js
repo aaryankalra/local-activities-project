@@ -10,7 +10,7 @@ const ActivityList = () => {
 
   return (
     <>
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5 mb-15">
         <div className="max-w-1/2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {categories.map((category) => (
             <div

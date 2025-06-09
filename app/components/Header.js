@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import Image from "next/image";
 import { SquarePen, LogIn } from "lucide-react";
 import {
   ClerkProvider,
@@ -9,28 +10,40 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
 } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Header = () => {
+  const { isSignedIn } = useUser();
+
   return (
     <>
       <div className="navbar pt-2 bg-base-100 shadow-sm px-5 sm:px-12 text-primary">
         <div className="navbar-start">
           <Link
             href="/"
-            className="text-xl font-bold hover:cursor-default hover:cursor-pointer"
+            className="text-xl text-primary font-bold hover:cursor-default hover:cursor-pointer"
           >
             LocalBuzz
           </Link>
         </div>
         <div className="navbar-center">
-          <Link href="/create">
-            <button className="btn flex items-center gap-2">
-              <span className="hidden sm:block">Create Event</span>
-              <SquarePen size={20} />
-            </button>
-          </Link>
+          {isSignedIn ? (
+            <Link href="/create">
+              <button className="btn flex items-center gap-2">
+                <span className="hidden sm:block">Create Event</span>
+                <SquarePen size={20} />
+              </button>
+            </Link>
+          ) : (
+            <SignInButton mode="modal">
+              <button className="btn flex items-center gap-2">
+                <span className="hidden sm:block">Create Event</span>
+                <SquarePen size={20} />
+              </button>
+            </SignInButton>
+          )}
         </div>
         <div className="navbar-end flex gap-1">
           {/* <button className="btn btn-ghost rounded-full flex items-center gap-1">
