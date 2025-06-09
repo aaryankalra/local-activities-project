@@ -3,6 +3,7 @@ import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 import app from "../../../utils/FirebaseConfig.js";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const ActivityCard = ({ item, itemId, setActivities }) => {
   const { user } = useUser();
@@ -94,7 +95,9 @@ const ActivityCard = ({ item, itemId, setActivities }) => {
                 </div>
               </div>
             </dialog>
-            <button className="btn btn-primary btn-soft">Opt in</button>
+            <Link href="/soon">
+              <button className="btn btn-primary btn-soft">Opt in</button>
+            </Link>
           </div>
         </div>
       </div>
