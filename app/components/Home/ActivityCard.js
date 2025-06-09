@@ -42,21 +42,21 @@ const ActivityCard = ({ item, itemId, setActivities }) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{item.title}</h2>
-          <p>{item.description}</p>
+          <p className="line-clamp-3">{item.description}</p>
           <div className="card-actions justify-between mt-2">
             <button className="btn btn-ghost" onClick={openModal}>
               Read More
             </button>
             <dialog ref={modalRef} className="modal">
-              <div className="modal-box flex flex-col pt-0 pb-5">
+              <div className="modal-box w-[80rem] flex flex-col pt-0 pb-5">
                 <div className="flex">
-                  <figure>
+                  {/* <figure>
                     <img
                       src={item.imageUrl}
                       alt="Event Image"
-                      className="h-52 rounded-lg"
+                      className="rounded-lg"
                     />
-                  </figure>
+                  </figure> */}
                   <div className="card-body">
                     <h2 className="card-title">{item.title}</h2>
                     <p>{item.description}</p>
