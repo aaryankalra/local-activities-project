@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 
-const SearchBox = () => {
+const SearchBox = ({ setToSearch }) => {
   const [search, setSearch] = useState("");
 
   const handleClick = (e) => {
     e.preventDefault();
+    setSearch(e.target.value);
+    setToSearch(e.target.value);
+  };
 
-    console.log(search);
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    setToSearch(e.target.value);
   };
 
   return (
@@ -44,9 +50,7 @@ const SearchBox = () => {
               placeholder="Search For Activities Near You"
               required
               value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-              }}
+              onChange={handleChange}
             />
             <button
               type="submit"

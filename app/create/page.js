@@ -2,19 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Categories from "../../utils/Data.js";
 import { useUser } from "@clerk/nextjs";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, addDoc, collection } from "firebase/firestore";
 import app from "../../utils/FirebaseConfig.js";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const create = () => {
-  const [categories, setCategories] = useState([]);
   const router = useRouter();
-
-  useEffect(() => {
-    setCategories(Categories);
-  });
 
   const [input, setInput] = useState({});
   const { user } = useUser();
@@ -37,7 +32,7 @@ const create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await setDoc(doc(db, "activities", Date.now().toString()), input);
+    await addDoc(collection(db, "activities"), input);
     router.push("/");
     toast.success("Event has been created.");
   };
@@ -131,27 +126,19 @@ const create = () => {
             />
           </div>
 
-          <div className="flex items-start mb-6">
-            <select
-              name="category"
-              defaultValue="Pick a category"
-              className="select text-gray-900"
-              required
-              onChange={handleChange}
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              className="text-white bg-primary hover:bg-indigo-800 hover:cursor-pointer focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
-              <option disabled={true}>Pick a category</option>
-              {categories.map((category) => (
-                <option key={category.id}>{category.name}</option>
-              ))}
-            </select>
+              Submit
+            </button>
+            <Link href="/">
+              <button className="btn hover:cursor-pointer focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                Go Back
+              </button>
+            </Link>
           </div>
-
-          <button
-            type="submit"
-            className="text-white bg-primary hover:bg-indigo-800 hover:cursor-pointer focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            Submit
-          </button>
         </form>
       </div>
     </>
